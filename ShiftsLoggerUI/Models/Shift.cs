@@ -8,11 +8,16 @@ using System.Threading.Tasks;
 
 namespace ShiftsLoggerUI.Models;
 
-internal class Shift
+public class Shift
 {
     public int Id { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
     public int EmployeeId { get; set; }
     public Employee Employee { get; set; }
+
+    public TimeSpan GetTotalTime()
+    {
+        return EndTime - StartTime;
+    }
 }

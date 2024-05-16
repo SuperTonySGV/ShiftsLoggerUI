@@ -20,5 +20,9 @@ public class TableVisualizationEngine
             .WithFormat(ConsoleTableBuilderFormat.Alternative)
             .ExportAndWriteLine(TableAligntment.Center);
         Console.WriteLine("\n\n");
+
+        Console.WriteLine("Press any button to continue.");
+        Console.ReadLine();
+        Console.Clear();
     }
 }
