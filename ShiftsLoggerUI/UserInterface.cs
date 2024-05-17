@@ -30,6 +30,10 @@ static internal class UserInterface
                     break;
                 case MainMenuOptions.Quit:
                     isAppRunning = false;
+                    AnsiConsole.MarkupLine("[bold yellow]Farewell[/]");
+                    var rule = new Rule();
+                    AnsiConsole.Write(rule);
+                    Environment.Exit(0);
                     break;
             }
         }
