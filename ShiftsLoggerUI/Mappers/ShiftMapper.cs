@@ -19,5 +19,15 @@ public static class ShiftMapper
             EmployeeId = shiftDto.EmployeeId
         };
     }
+
+    public static Shift ToShiftFromUpdateDto(this UpdateShiftRequestDto shiftDto)
+    {
+        return new Shift
+        {
+            Id = shiftDto.Id,
+            StartTime = shiftDto.StartTime,
+            EndTime = shiftDto.EndTime
+        };
+    }
 }
 

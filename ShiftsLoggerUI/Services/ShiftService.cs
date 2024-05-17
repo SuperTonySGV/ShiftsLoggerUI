@@ -5,6 +5,7 @@ using ShiftsLoggerUI.Controllers;
 using ShiftsLoggerUI.Dtos;
 using ShiftsLoggerUI.Models;
 using Spectre.Console;
+using System.Globalization;
 
 namespace ShiftsLoggerUI.Services;
 
@@ -13,23 +14,61 @@ internal class ShiftService
     internal static async Task InsertShift()
     {
         var shift = new CreateShiftRequestDto();
-        // TODO: These date times should be some kind of an input
-        shift.StartTime = DateTime.Now;
-        shift.EndTime = DateTime.Now;
-
         var employee = await EmployeeService.GetEmployeeOptionInput();
         shift.EmployeeId = employee.Id;
+        shift.StartTime = Helpers.GetDateAndTime("Start Time");
+        shift.EndTime = Helpers.GetDateAndTime("End Time");
+        bool validTimes = false;
+
+        while (!validTimes)
+        {
+
+            if (shift.StartTime >= shift.EndTime)
+            {
+                Console.Clear();
+                AnsiConsole.MarkupLine("[red]Error: Start time must be before end time.[/]");
+                shift.StartTime = Helpers.GetDateAndTime("Start Time");
+                shift.EndTime = Helpers.GetDateAndTime("End Time");
+            }
+            else
+            {
+                validTimes = true;
+            }
+        }
+
         await ShiftController.AddShift(shift);
     }
-    internal static void UpdateShift()
+
+    internal static async Task UpdateShift()
     {
-        throw new NotImplementedException();
+        var shift = new UpdateShiftRequestDto();
+        var shiftId = await GetShiftOptionInputId();
+        shift.Id = shiftId;
+        shift.StartTime = Helpers.GetDateAndTime("Start Time");
+        shift.EndTime = Helpers.GetDateAndTime("End Time");
+        bool validTimes = false;
+
+        while (!validTimes)
+        {
+
+            if (shift.StartTime >= shift.EndTime)
+            {
+                Console.Clear();
+                AnsiConsole.MarkupLine("[red]Error: Start time must be before end time.[/]");
+                shift.StartTime = Helpers.GetDateAndTime("Start Time");
+                shift.EndTime = Helpers.GetDateAndTime("End Time");
+            }
+            else
+            {
+                validTimes = true; // Set to true when valid times are entered
+            }
+        }
+
+        await ShiftController.UpdateShift(shift);
     }
     internal static async Task<List<Shift>> GetAllShiftsByEmployee()
     {
         var employee = await EmployeeService.GetEmployeeOptionInput();
-
-        // get list of shifts
         var shifts = await ShiftController.GetAllShifts();
 
         var shiftsForEmployee = shifts

@@ -104,4 +104,39 @@ internal class ShiftController
             Console.WriteLine(ex); Console.ReadLine();
         }
     }
+
+    public static async Task UpdateShift(UpdateShiftRequestDto updateDto)
+    {
+        Console.Clear();
+
+        string apiEndPoint = $"https://localhost:7131/api/Shift/{updateDto.Id}";
+
+        try
+        {
+            using (HttpClient client = new HttpClient())
+            {
+
+                var json = JsonConvert.SerializeObject(updateDto);
+                var postData = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PutAsync(apiEndPoint, postData);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("POST request successful!");
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("Response:");
+                    Console.WriteLine(responseBody);
+                }
+                else
+                {
+                    Console.WriteLine($"Error: {response.StatusCode}");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex); Console.ReadLine();
+        }
+    }
 }

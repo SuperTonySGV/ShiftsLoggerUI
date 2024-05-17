@@ -103,7 +103,7 @@ static internal class UserInterface
                     ShiftService.DeleteShift().Wait();
                     break;
                 case ShiftMenu.UpdateShift:
-                    ShiftService.UpdateShift();
+                    ShiftService.UpdateShift().Wait();
                     break;
                 case ShiftMenu.ViewAllShifts:
                     ShiftService.ShowShiftForEmployee().Wait();
