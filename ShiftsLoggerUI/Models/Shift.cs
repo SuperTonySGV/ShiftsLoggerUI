@@ -14,7 +14,6 @@ public class Shift
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
     public int EmployeeId { get; set; }
-    public Employee Employee { get; set; }
 
     public TimeSpan GetTotalTime()
     {

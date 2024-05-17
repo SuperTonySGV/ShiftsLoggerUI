@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
-using ShiftsLoggerUI.Models;
+﻿using ShiftsLoggerUI.Models;
 using ShiftsLoggerUI.Services;
 using Spectre.Console;
 
@@ -152,10 +150,21 @@ static internal class UserInterface
         table.AddColumn("Shift ID");
         table.AddColumn("Start time");
         table.AddColumn("End time");
+        table.AddColumn("Shift duration");
+
 
         foreach (var shift in shifts)
         {
-            table.AddRow(shift.Id.ToString(), shift.StartTime.ToString(), shift.EndTime.ToString());
+            TimeSpan timeDifference = shift.EndTime - shift.StartTime;
+
+            int totalHours = (int)timeDifference.TotalHours;
+            int totalMinutes = (int)timeDifference.TotalMinutes % 60;
+            int totalSeconds = (int)timeDifference.TotalSeconds % 60;
+
+            string formattedTimeDifference = $"{totalHours:D2}:{totalMinutes:D2}:{totalSeconds:D2}";
+
+
+            table.AddRow(shift.Id.ToString(), shift.StartTime.ToString(), shift.EndTime.ToString(), formattedTimeDifference);
         }
 
         AnsiConsole.Write(table);

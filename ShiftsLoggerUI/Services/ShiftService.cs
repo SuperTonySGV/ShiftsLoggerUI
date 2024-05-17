@@ -99,7 +99,6 @@ internal class ShiftService
     public static async Task<int> GetShiftOptionInputId()
     {
         var shifts = await GetAllShiftsByEmployee();
-        //Console.WriteLine($"Employee: {employee.Name}");
         foreach (var shift in shifts)
         {
             Console.WriteLine("Please choose from the following shifts");

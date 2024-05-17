@@ -10,7 +10,6 @@ namespace ShiftsLoggerUI.Controllers;
 
 internal class EmployeeController
 {
-
     public static async Task AddEmployee(CreateEmployeeRequestDto employeeDto)
     {
         Console.Clear();
@@ -83,8 +82,6 @@ internal class EmployeeController
 
     public static async Task<List<Employee>> GetAllEmployees()
     {
-        //Console.Clear();
-
         string apiEndPoint = "https://localhost:7131/api/Employee";
 
         List<Employee> employees = new List<Employee>();

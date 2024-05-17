@@ -11,10 +11,4 @@ public class Employee
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public List<Shift> Shifts { get; set; }
-}
-
-public class Employees
-{
-    public List<Employee> EmployeesList { get; set; }
 }
